@@ -15,7 +15,7 @@ function randomColor() {
 
 const Statistics = ({ title, stats }) => (
   <section className={styles.statistics}>
-    <h2 className={styles.title}>{title}</h2>
+    {title ? <h2 className={styles.title}>{title}</h2> : false}
 
     <ul className={styles.statList}>
       {stats.map(({ id, label, percentage }) => (
@@ -33,9 +33,9 @@ const Statistics = ({ title, stats }) => (
   </section>
 );
 
-Statistics.defaultProps = {
-  title: null,
-};
+// Statistics.defaultProps = {
+//   title: null,
+// };
 
 Statistics.propTypes = {
   stats: PropTypes.arrayOf(

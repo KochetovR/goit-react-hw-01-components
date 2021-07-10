@@ -1,30 +1,43 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Profile from "./Profile-card";
+// import ProfileCard from "./Profile-card";
 import styles from "./Profile.module.css";
+import defaultImg from "./defaultImg.jpg";
 
-const FriendList = ({ users }) => (
-  <ul className={styles.list}>
-    {users.map(
-      ({ name, tag, location, avatar, stats: { followers, views, likes } }) => (
-        <li key={tag} className={styles.card}>
-          <Profile
-            name={name}
-            tag={tag}
-            location={location}
-            avatar={avatar}
-            followers={followers}
-            views={views}
-            likes={likes}
-          />
+const Profile = ({ name, tag, location, avatar, followers, views, likes }) => (
+  <li className={styles.card}>
+    <div className={styles.profile}>
+      <div className={styles.description}>
+        <img src={avatar} alt="Аватар пользователя" className={styles.avatar} />
+        <p className={styles.name}>{name}</p>
+        <p className={styles.tag}>@{tag}</p>
+        <p className={styles.location}>{location}</p>
+      </div>
+
+      <ul className={styles.stats}>
+        <li>
+          <span className={styles.label}>Followers</span>
+          <span className={styles.quantity}>{followers}</span>
         </li>
-      )
-    )}
-  </ul>
+        <li>
+          <span className={styles.label}>Views</span>
+          <span className={styles.quantity}>{views}</span>
+        </li>
+        <li>
+          <span className={styles.label}>Likes</span>
+          <span className={styles.quantity}>{likes}</span>
+        </li>
+      </ul>
+    </div>
+  </li>
 );
-// Проверяю тип tag, т.к. использую его для ключей
-FriendList.propTypes = {
+
+Profile.defaultProps = {
+  avatar: defaultImg,
+};
+
+Profile.propTypes = {
   users: PropTypes.arrayOf(
     PropTypes.shape({
       tavatar: PropTypes.string,
@@ -35,7 +48,7 @@ FriendList.propTypes = {
       views: PropTypes.number,
       likes: PropTypes.number,
     })
-  ).isRequired,
+  ),
 };
 
-export default FriendList;
+export default Profile;
